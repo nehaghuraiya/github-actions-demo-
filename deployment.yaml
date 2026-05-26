@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: github-actions-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: github-actions-demo
+  template:
+    metadata:
+      labels:
+        app: github-actions-demo
+    spec:
+      containers:
+      - name: app
+        image: nehaghuraiya/github-actions-demo:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: github-actions-demo
+spec:
+  selector:
+    app: github-actions-demo
+  ports:
+  - port: 80
+    targetPort: 80
+  type: NodePort
