@@ -1,4 +1,4 @@
-name: First CI Pipeline
+name: CI Pipeline
 
 on:
   push:
@@ -6,18 +6,19 @@ on:
       - main
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Print Message
-        run: echo "Pipeline triggered successfully"
+      - name: Verify File Exists
+        run: |
+          ls -la
+          cat app.txt
 
-      - name: Show Files
-        run: ls -la
-
-      - name: Read File
-        run: cat app.txt
+      - name: Run Validation
+        run: |
+          echo "Running validation checks"
+          grep "Hello" app.txt
